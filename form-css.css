@@ -1,0 +1,14 @@
+/* CSS de la plantilla utilizada de CodePen */
+
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.field-error {
+  display: none;
+}
+
+.show-error .field-error {
+  display: block;
+}
