@@ -33,7 +33,7 @@
     </div>
 
     <!-- Despues del formulario, que nos envie a ver_cv.php, donde se procesarán los datos y se guardarán en la BD -->
-    <form id="form" class="space-y-6 relative" method="post" action="ver_cv.php" enctype="multipart/form-data" novalidate>
+    <form id="form" class="space-y-6 relative" method="post" action="/CV_PHP/ver_cv.php" enctype="multipart/form-data" novalidate>
       <h1 class="text-2xl font-bold">Generador de Currículum Vitae</h1>
 
       <!-- Datos personales -->

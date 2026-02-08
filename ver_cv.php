@@ -58,7 +58,7 @@ $stmt->close();
 
 $nextVersion = (int)$maxVersion + 1;
 
-// 2) Insertamos el nuevo CV con la versión siguiente
+// Insertamos el nuevo CV con la versión siguiente
 $ins = $conexion->prepare("
   INSERT INTO cvs
   (version, nombre, email, telefono, ubicacion, sobre_mi, experiencia, formacion, habilidades, idiomas)
@@ -88,8 +88,8 @@ $ins->close();
 
 $versionGuardada = $nextVersion;
 
-// Ahora monstramos el CV con los datos guardados previos
-// El CV es una plantilla de CodePen, pero esta adaptada para mostrar los mismos apaortados que hemos rellenado previamente
+// Ahora mostramos el CV con los datos guardados previos
+// El CV es de una plantilla de CodePen, pero esta adaptada para mostrar los mismos apartados que hemos rellenado previamente
 // (https://codepen.io/nodws/pen/EmvwrZ)
 ?>
 <!DOCTYPE html>
@@ -111,8 +111,14 @@ $versionGuardada = $nextVersion;
         <div class="col-sm-9">
           <h2><strong><?= e($nombre ?: 'Nombre no indicado') ?></strong></h2>
         </div>
+
+        <!-- Añadimos un nuevo botón para el historial que solo se muestra si hay un email (porque el historial se basa en el email) -->
         <div class="col-sm-3">
-          <div class="button pull-right">
+          <div class="button pull-right" style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+            <?php if ($email): ?>
+              <a href="historial.php?email=<?= urlencode($email) ?>" class="btn btn-outline-success btn-sm">Historial</a>
+            <?php endif; ?>
+
             <a href="form.php" class="btn btn-outline-success btn-sm">Volver</a>
           </div>
         </div>
