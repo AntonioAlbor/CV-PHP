@@ -69,7 +69,8 @@ $skills = array_filter(array_map("trim", explode(",", (string)$cv["habilidades"]
     <div class="col-sm-12">
       <div class="card card-block text-xs-left">
         <h5>Sobre mí</h5>
-        <p><?= $cv["sobre_mi"] ? nl($cv["sobre_mi"]) : "No indicado." ?></p>
+        <p><?= $cv["sobre_mi"] ? nl2br(e($cv["sobre_mi"])) : "No indicado." ?></p> <!-- Si no hay texto se muestra "No indicado" -->
+          <!-- nl2br para convertir los saltos de línea en <br> -->
       </div>
     </div>
   </div>
@@ -95,7 +96,7 @@ $skills = array_filter(array_map("trim", explode(",", (string)$cv["habilidades"]
     <div class="col-sm-12">
       <div class="card card-block text-xs-left">
         <h5>Experiencia</h5>
-        <p><?= $cv["experiencia"] ? nl($cv["experiencia"]) : "No indicada." ?></p>
+        <p><?= $cv["experiencia"] ? nl2br(e($cv["experiencia"])) : "No indicada." ?></p> <!-- Si no hay texto se muestra "No indicado" -->
       </div>
     </div>
   </div>
@@ -104,7 +105,7 @@ $skills = array_filter(array_map("trim", explode(",", (string)$cv["habilidades"]
     <div class="col-sm-12">
       <div class="card card-block text-xs-left">
         <h5>Formación</h5>
-        <p><?= $cv["formacion"] ? nl($cv["formacion"]) : "No indicada." ?></p>
+        <p><?= $cv["formacion"] ? nl2br(e($cv["formacion"])) : "No indicada." ?></p> <!-- Si no hay texto se muestra "No indicado" -->
       </div>
     </div>
   </div>
@@ -113,7 +114,7 @@ $skills = array_filter(array_map("trim", explode(",", (string)$cv["habilidades"]
     <div class="col-sm-12">
       <div class="card card-block text-xs-left">
         <h5>Idiomas</h5>
-        <p><?= $cv["idiomas"] ? nl($cv["idiomas"]) : "No indicados." ?></p>
+        <p><?= $cv["idiomas"] ? nl2br(e($cv["idiomas"])) : "No indicados." ?></p> <!-- Si no hay texto se muestra "No indicados" -->
       </div>
     </div>
   </div>
