@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -26,14 +27,14 @@
 
 <body class="bg-neutral-950 text-neutral-100 min-h-screen flex items-center justify-center p-4">
 
-<!-- La barra de progreso -->
+  <!-- La barra de progreso -->
   <div id="container" class="w-full max-w-4xl space-y-8 transition-all duration-500">
     <div class="relative w-full h-1 bg-neutral-800 rounded-full overflow-hidden" aria-hidden="true">
       <div id="progress" class="absolute top-0 left-0 h-1 bg-blue-500 transition-all duration-500 ease-out" style="width: 25%"></div>
     </div>
 
     <!-- Despues del formulario, que nos envie a ver_cv.php, donde se procesarán los datos y se guardarán en la BD -->
-    <form id="form" class="space-y-6 relative" method="post" action="/CV_PHP/ver_cv.php" enctype="multipart/form-data" novalidate>
+    <form id="form" class="space-y-6 relative" method="post" action="ver_cv.php" enctype="multipart/form-data" novalidate>
       <h1 class="text-2xl font-bold">Generador de Currículum Vitae</h1>
 
       <!-- Datos personales -->
@@ -45,13 +46,18 @@
             <label for="nombre" class="block text-sm text-neutral-400 mb-1">Nombre completo <span class="text-red-400">*</span></label>
             <input id="nombre" name="nombre" required
               class="peer w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 transition" />
-            <p class="field-error text-xs text-red-400 mt-1" id="nombre_err">Escribe tu nombre.</p>
+            <p class="field-error text-xs text-red-400 mt-1" id="nombre_err">
+              El nombre es obligatorio (mínimo 3 caracteres).
+            </p>
           </div>
 
           <div class="field">
             <label for="telefono" class="block text-sm text-neutral-400 mb-1">Teléfono</label>
             <input id="telefono" name="telefono"
               class="peer w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 transition" />
+            <p class="field-error text-xs text-red-400 mt-1" id="telefono_err">
+              Teléfono no válido (mínimo 9 dígitos).
+            </p>
           </div>
 
           <div class="md:col-span-2 field">
@@ -162,6 +168,7 @@
     </form>
   </div>
 
-  <script src="form-js.js"></script>
+  <script src="form-js.js?v=2"></script>
 </body>
+
 </html>

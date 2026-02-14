@@ -63,6 +63,8 @@ function showStep(index) {
   if (first) first.focus();
 }
 
+// VALIDACIONES
+
 function validateStep(index) {
   let ok = true;
 
@@ -81,10 +83,20 @@ function validateStep(index) {
 
     if (id === "email") {
       const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      if (!emailOk) {
-        setInvalid(el, "email_err");
-        ok = false;
-      } else setValid(el);
+      if (!emailOk) { setInvalid(el, "email_err"); ok = false; }
+      else setValid(el);
+      continue;
+    }
+
+    if (id === "nombre" && value.length < 3) {
+      setInvalid(el, "nombre_err");
+      ok = false;
+      continue;
+    }
+
+    if ((id === "experiencia" || id === "formacion") && value.length < 15) {
+      setInvalid(el, `${id}_err`);
+      ok = false;
       continue;
     }
 
@@ -93,6 +105,20 @@ function validateStep(index) {
       ok = false;
     } else {
       setValid(el);
+    }
+  }
+
+  if (index === 0) {
+    const tel = document.getElementById("telefono");
+    if (tel) {
+      const t = (tel.value || "").trim();
+      if (t !== "") {
+        const telOk = /^[0-9+\s()-]{6,20}$/.test(t) && (t.replace(/\D/g, "").length >= 9);
+        if (!telOk) {
+          setInvalid(tel, "telefono_err");
+          ok = false;
+        } else setValid(tel);
+      } else setValid(tel);
     }
   }
 

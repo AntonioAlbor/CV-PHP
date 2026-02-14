@@ -4,16 +4,23 @@
 
 // Datos de conexión al servidor
 $server = "localhost";
-$user   = "root";           // Usuario de la base de datos
-$pass   = "root";           // Contraseña del usuario
-$db     = "curriculum_php"; // Nombre de la base de datos
+$user   = "root";
+$db     = "curriculum_php";
 
-// Creamos la conexión
-$conexion = new mysqli($server, $user, $pass, $db);
+// Intentamos primero con contraseña "root"
+$pass = "root";
+$conexion = @new mysqli($server, $user, $pass, $db);
 
-// Comprobación de errores en la conexión
+// Si falla, intentamos con contraseña vacía
 if ($conexion->connect_errno) {
-  die("Error de conexión: " . $conexion->connect_error);
+    $pass = "";
+    $conexion = @new mysqli($server, $user, $pass, $db);
 }
+
+// Si sigue fallando, mostramos error
+if ($conexion->connect_errno) {
+    die("Error de conexión: " . $conexion->connect_error);
+}
+
 
 ?>

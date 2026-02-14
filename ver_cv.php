@@ -19,9 +19,30 @@ $idiomas     = trim($_POST['idiomas'] ?? '');
 function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 function nl($s){ return nl2br(e($s)); }
 
-// Validación de nombre y email
-if ($nombre === '' || $email === '') {
-  die("Error: nombre y email son obligatorios. <a href='form.php'>Volver</a>");
+// VALIDACIONES
+
+if ($nombre === '' || mb_strlen($nombre) < 3) {
+  die("Error: el nombre es obligatorio y debe tener al menos 3 caracteres. <a href='form.php'>Volver</a>");
+}
+
+if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  die("Error: email obligatorio y con formato válido. <a href='form.php'>Volver</a>");
+}
+
+if ($experiencia === '' || mb_strlen($experiencia) < 15) {
+  die("Error: la experiencia es obligatoria y debe tener al menos 15 caracteres. <a href='form.php'>Volver</a>");
+}
+
+if ($formacion === '' || mb_strlen($formacion) < 15) {
+  die("Error: la formación es obligatoria y debe tener al menos 15 caracteres. <a href='form.php'>Volver</a>");
+}
+
+if ($telefono !== '') {
+  $telOkRegex = preg_match('/^[0-9+\s()\-]{6,20}$/', $telefono);
+  $digits = preg_replace('/\D+/', '', $telefono);
+  if (!$telOkRegex || strlen($digits) < 9) {
+    die("Error: teléfono no válido. <a href='form.php'>Volver</a>");
+  }
 }
 
 // Procesamos la foto (si se ha subido una)

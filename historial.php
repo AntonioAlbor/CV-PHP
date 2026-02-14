@@ -35,7 +35,7 @@ if ($email !== "") {
 
     <div class="flex items-center justify-between">
       <h1 class="text-2xl font-bold">Historial de versiones</h1>
-      <a href="/CV_PHP/form.php" class="px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700">Crear nuevo CV</a>
+      <a href="form.php" class="px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700">Crear nuevo CV</a>
     </div>
 
     <!-- Botón con campo para buscar por email -->
@@ -68,12 +68,12 @@ if ($email !== "") {
                   <td class="p-3"><?= e($r["nombre"]) ?></td>
                   <td class="p-3 flex gap-2 flex-wrap">
                     <a class="px-3 py-1 bg-neutral-800 rounded hover:bg-neutral-700"
-                       href="/CV_PHP/ver_version.php?id=<?= (int)$r["id"] ?>">Ver</a>
+                       href="ver_version.php?id=<?= (int)$r["id"] ?>">Ver</a>
 
                     <a class="px-3 py-1 bg-blue-600 rounded hover:bg-blue-500"
-                       href="/CV_PHP/editar.php?id=<?= (int)$r["id"] ?>">Editar (nueva)</a>
+                       href="editar.php?id=<?= (int)$r["id"] ?>">Editar (nueva)</a>
 
-                    <form method="post" action="/CV_PHP/eliminar.php" onsubmit="return confirm('¿Eliminar esta versión?');">
+                    <form method="post" action="eliminar.php" onsubmit="return confirm('¿Eliminar esta versión?');">
                       <input type="hidden" name="id" value="<?= (int)$r["id"] ?>">
                       <input type="hidden" name="email" value="<?= e($email) ?>">
                       <button class="px-3 py-1 bg-red-600 rounded hover:bg-red-500">Eliminar</button>
