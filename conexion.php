@@ -1,26 +1,20 @@
 <?php
-/* Conexión a la base de datos MySQL usando mysqli
-*/
-
-// Datos de conexión al servidor
 $server = "localhost";
 $user   = "root";
 $db     = "curriculum_php";
 
-// Intentamos primero con contraseña "root"
-$pass = "root";
-$conexion = @new mysqli($server, $user, $pass, $db);
+// Intento sin contraseña
+$pass = "";
+$conexion = new mysqli($server, $user, $pass, $db);
 
-// Si falla, intentamos con contraseña vacía
+// Si falla intentamos con root"
 if ($conexion->connect_errno) {
-    $pass = "";
-    $conexion = @new mysqli($server, $user, $pass, $db);
+    $pass = "root";
+    $conexion = new mysqli($server, $user, $pass, $db);
 }
 
-// Si sigue fallando, mostramos error
+// Error total
 if ($conexion->connect_errno) {
     die("Error de conexión: " . $conexion->connect_error);
 }
-
-
 ?>
