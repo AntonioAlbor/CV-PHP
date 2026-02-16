@@ -36,12 +36,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   // ===== VALIDACIONES (mismas reglas que form-js) =====
   if ($nombre === '' || mb_strlen($nombre) < 3) {
     $error = "Error: el nombre es obligatorio y debe tener al menos 3 caracteres.";
+  } elseif (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/u', $nombre)) {
+    $error = "Error: el nombre solo puede contener letras y espacios.";
   } elseif ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error = "Error: email no válido.";
-  } elseif ($experiencia === '' || mb_strlen($experiencia) < 15) {
-    $error = "Error: la experiencia es obligatoria y debe tener al menos 15 caracteres.";
-  } elseif ($formacion === '' || mb_strlen($formacion) < 15) {
-    $error = "Error: la formación es obligatoria y debe tener al menos 15 caracteres.";
+  } elseif ($experiencia === '' || mb_strlen($experiencia) < 13) {
+    $error = "Error: la experiencia es obligatoria y debe tener al menos 13 caracteres.";
+  } elseif ($formacion === '' || mb_strlen($formacion) < 13) {
+    $error = "Error: la formación es obligatoria y debe tener al menos 13 caracteres.";
   } elseif ($telefono !== '') {
     $telOkRegex = preg_match('/^[0-9+\s()\-]{6,20}$/', $telefono);
     $digits = preg_replace('/\D+/', '', $telefono);
@@ -162,8 +164,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       </label>
 
       <label class="block">
-        <span class="text-neutral-300">Habilidades (separadas por comas)</span>
-        <textarea name="habilidades" rows="2" class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2"><?= e($base["habilidades"]) ?></textarea>
+        <span class="text-neutral-300">Habilidades (pulsa Enter o coma)</span>
+
+        <div id="tagInputEdit"
+          class="flex flex-wrap items-center gap-2 w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+          <input id="tagFieldEdit" type="text" placeholder="Ej: HTML, CSS, PHP..."
+            class="flex-1 bg-transparent outline-none text-neutral-100 placeholder-neutral-600" />
+        </div>
+
+        <!-- Este es el que realmente se envía al PHP -->
+        <input type="hidden" name="habilidades" id="habilidades_hidden_edit" value="<?= e($base["habilidades"]) ?>">
+
+        <p class="text-xs text-neutral-500 mt-2">Haz clic en una habilidad para borrarla.</p>
       </label>
 
       <label class="block">
@@ -175,5 +187,82 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
   </div>
 </body>
+
+<script>
+  // === TAGS (igual que en form-js) para EDITAR ===
+  const tagContainerEdit = document.getElementById("tagInputEdit");
+  const tagFieldEdit = document.getElementById("tagFieldEdit");
+  const habilidadesHiddenEdit = document.getElementById("habilidades_hidden_edit");
+
+  let tagsEdit = [];
+
+  function normalizeTag(t) {
+    // Quita comas, dobles espacios, etc.
+    return (t || "").trim().replaceAll(",", "");
+  }
+
+  function syncHiddenSkillsEdit() {
+    habilidadesHiddenEdit.value = tagsEdit.join(", ");
+  }
+
+  function renderTagsEdit() {
+    tagContainerEdit.querySelectorAll(".tag").forEach((el) => el.remove());
+
+    tagsEdit.forEach((tag) => {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.textContent = tag;
+      chip.className =
+        "tag bg-blue-600 text-white text-xs px-2 py-1 rounded-full cursor-pointer hover:bg-blue-500 transition";
+
+      chip.addEventListener("click", () => {
+        tagsEdit = tagsEdit.filter((t) => t !== tag);
+        renderTagsEdit();
+        syncHiddenSkillsEdit();
+      });
+
+      tagContainerEdit.insertBefore(chip, tagFieldEdit);
+    });
+  }
+
+  function addTagEdit(raw) {
+    const value = normalizeTag(raw);
+    if (!value) return;
+
+    // Evita duplicados (insensible a mayúsculas)
+    const exists = tagsEdit.some(t => t.toLowerCase() === value.toLowerCase());
+    if (exists) return;
+
+    tagsEdit.push(value);
+    renderTagsEdit();
+    syncHiddenSkillsEdit();
+  }
+
+  const initial = (habilidadesHiddenEdit.value || "")
+    .split(",")
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  tagsEdit = initial;
+  renderTagsEdit();
+  syncHiddenSkillsEdit();
+
+  tagFieldEdit.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      addTagEdit(tagFieldEdit.value);
+      tagFieldEdit.value = "";
+    }
+  });
+
+  tagFieldEdit.addEventListener("paste", (e) => {
+    const pasted = (e.clipboardData || window.clipboardData).getData("text");
+    if (pasted && pasted.includes(",")) {
+      e.preventDefault();
+      pasted.split(",").forEach(part => addTagEdit(part));
+      tagFieldEdit.value = "";
+    }
+  });
+</script>
 
 </html>

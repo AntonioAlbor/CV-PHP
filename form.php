@@ -37,20 +37,30 @@
     <form id="form" class="space-y-6 relative" method="post" action="ver_cv.php" enctype="multipart/form-data" novalidate>
       <h1 class="text-2xl font-bold">Generador de Currículum Vitae</h1>
 
-      <!-- Datos personales -->
       <section class="step space-y-4" data-step="0">
         <h2 class="text-xl font-semibold">Datos personales</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Nombre -->
           <div class="field">
-            <label for="nombre" class="block text-sm text-neutral-400 mb-1">Nombre completo <span class="text-red-400">*</span></label>
-            <input id="nombre" name="nombre" required
+            <label for="nombre" class="block text-sm text-neutral-400 mb-1">
+              Nombre completo <span class="text-red-400">*</span>
+            </label>
+
+            <input
+              id="nombre"
+              name="nombre"
+              required
+              pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$"
+              title="El nombre solo puede contener letras y espacios."
               class="peer w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 transition" />
+
             <p class="field-error text-xs text-red-400 mt-1" id="nombre_err">
-              El nombre es obligatorio (mínimo 3 caracteres).
+              El nombre es obligatorio (mínimo 3 caracteres) y solo puede contener letras.
             </p>
           </div>
 
+          <!-- Teléfono -->
           <div class="field">
             <label for="telefono" class="block text-sm text-neutral-400 mb-1">Teléfono</label>
             <input id="telefono" name="telefono"
@@ -60,16 +70,22 @@
             </p>
           </div>
 
+          <!-- Email -->
           <div class="md:col-span-2 field">
-            <label for="email" class="block text-sm text-neutral-400 mb-1">Email <span class="text-red-400">*</span></label>
+            <label for="email" class="block text-sm text-neutral-400 mb-1">
+              Email <span class="text-red-400">*</span>
+            </label>
             <input id="email" type="email" name="email" required
               class="peer w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 transition"
               placeholder="nombre@ejemplo.com" />
             <p class="field-error text-xs text-red-400 mt-1" id="email_err">Email no válido.</p>
           </div>
 
+          <!-- Ubicación -->
           <div class="md:col-span-2 field">
-            <label for="ubicacion" class="block text-sm text-neutral-400 mb-1">Ubicación (Ciudad / Provincia)</label>
+            <label for="ubicacion" class="block text-sm text-neutral-400 mb-1">
+              Ubicación (Ciudad / Provincia)
+            </label>
             <input id="ubicacion" name="ubicacion"
               class="peer w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 transition"
               placeholder="Ej: Jerez de la Frontera, Cádiz" />
@@ -83,6 +99,7 @@
               placeholder="Ej: Soy estudiante de DAW, me gusta..."></textarea>
           </div>
 
+          <!-- Foto -->
           <div class="md:col-span-2">
             <label for="foto" class="block text-sm text-neutral-400 mb-1">Foto (opcional)</label>
             <div class="flex gap-4 items-start">
@@ -96,6 +113,7 @@
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -108,7 +126,7 @@
           <textarea id="experiencia" name="experiencia" rows="7" required
             class="peer w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 transition"
             placeholder="Ej: 2024 - 2025 | Empresa X | Técnico..."></textarea>
-          <p class="field-error text-xs text-red-400 mt-1" id="experiencia_err">Este campo es obligatorio.</p>
+          <p class="field-error text-xs text-red-400 mt-1" id="experiencia_err">Este campo es obligatorio y debe tener al menos 13 caracteres.</p>
         </div>
       </section>
 
@@ -121,7 +139,7 @@
           <textarea id="formacion" name="formacion" rows="6" required
             class="peer w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 transition"
             placeholder="Ej: 2023 - 2025 | CFGS DAW | Centro..."></textarea>
-          <p class="field-error text-xs text-red-400 mt-1" id="formacion_err">Este campo es obligatorio.</p>
+          <p class="field-error text-xs text-red-400 mt-1" id="formacion_err">Este campo es obligatorio y debe tener al menos 13 caracteres.</p>
         </div>
 
         <div class="field">

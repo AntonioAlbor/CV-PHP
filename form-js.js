@@ -88,13 +88,20 @@ function validateStep(index) {
       continue;
     }
 
-    if (id === "nombre" && value.length < 3) {
-      setInvalid(el, "nombre_err");
-      ok = false;
-      continue;
+    if (id === "nombre") {
+      const soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(value);
+
+      if (value.length < 3 || !soloLetras) {
+        setInvalid(el, "nombre_err");
+        ok = false;
+        continue;
+      } else {
+        setValid(el);
+        continue;
+      }
     }
 
-    if ((id === "experiencia" || id === "formacion") && value.length < 15) {
+    if ((id === "experiencia" || id === "formacion") && value.length < 13) {
       setInvalid(el, `${id}_err`);
       ok = false;
       continue;
@@ -241,7 +248,7 @@ function generateSummary() {
     email: "Email",
     telefono: "Teléfono",
     ubicacion: "Ubicación",
-    sobre_mi: "Sobre mí",     
+    sobre_mi: "Sobre mí",
     experiencia: "Experiencia",
     formacion: "Formación",
     habilidades: "Habilidades",

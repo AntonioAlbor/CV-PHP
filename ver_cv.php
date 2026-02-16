@@ -25,16 +25,20 @@ if ($nombre === '' || mb_strlen($nombre) < 3) {
   die("Error: el nombre es obligatorio y debe tener al menos 3 caracteres. <a href='form.php'>Volver</a>");
 }
 
+if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/u', $nombre)) {
+  die("Error: el nombre solo puede contener letras y espacios. <a href='form.php'>Volver</a>");
+}
+
 if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
   die("Error: email obligatorio y con formato válido. <a href='form.php'>Volver</a>");
 }
 
-if ($experiencia === '' || mb_strlen($experiencia) < 15) {
-  die("Error: la experiencia es obligatoria y debe tener al menos 15 caracteres. <a href='form.php'>Volver</a>");
+if ($experiencia === '' || mb_strlen($experiencia) < 13) {
+  die("Error: la experiencia es obligatoria y debe tener al menos 13 caracteres. <a href='form.php'>Volver</a>");
 }
 
-if ($formacion === '' || mb_strlen($formacion) < 15) {
-  die("Error: la formación es obligatoria y debe tener al menos 15 caracteres. <a href='form.php'>Volver</a>");
+if ($formacion === '' || mb_strlen($formacion) < 13) {
+  die("Error: la formación es obligatoria y debe tener al menos 13 caracteres. <a href='form.php'>Volver</a>");
 }
 
 if ($telefono !== '') {
