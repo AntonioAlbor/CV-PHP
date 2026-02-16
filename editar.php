@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $habilidades = trim($_POST["habilidades"] ?? "");
   $idiomas = trim($_POST["idiomas"] ?? "");
 
-  // ===== VALIDACIONES (mismas reglas que form-js) =====
+  // ===== VALIDACIONES =====
   if ($nombre === '' || mb_strlen($nombre) < 3) {
     $error = "Error: el nombre es obligatorio y debe tener al menos 3 caracteres.";
   } elseif (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/u', $nombre)) {

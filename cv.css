@@ -1,10 +1,22 @@
-/* Estilos para el CV adaptados de la plantilla de CodePen*/
+/* === Estilo oscuro === */
+
+:root{
+  --bg: #0a0a0a;         
+  --panel: #111111;      
+  --panel-2: #0f0f0f;    
+  --border: #262626;     
+  --text: #f5f5f5;      
+  --muted: #a3a3a3;      
+  --blue: #3b82f6;        
+  --blue-hover:#2563eb;    
+}
 
 body{
-  background: #DAE3E7;
+  background: var(--bg);
   font-family: "Roboto", sans-serif;
   margin:0;
   padding-bottom: 40px;
+  color: var(--text);
 }
 
 img{ max-width:100%; }
@@ -30,62 +42,82 @@ img{ max-width:100%; }
 .text-center{ text-align:center; }
 .pull-right{ text-align:right; }
 
+/* HEADER */
 .header{
-  padding: 10px 0;
-  background: #f5f5f5;
-  border-top: 3px solid #3AAA64;
+  padding: 18px 0;
+  background: var(--panel-2);
+  border-top: 3px solid var(--blue);
+  border-bottom: 1px solid var(--border);
 }
 
-.button-email{ margin:10px 0; }
-
+/* Títulos */
 h5{
-  color:#3AAA64;
+  color: var(--blue);
   margin: 0 0 10px 0;
 }
 
+h2 strong{ color: var(--text); }
+
+p{ color: var(--muted); }
+strong{ color: var(--text); }
+
+/* Foto */
 .rounded-circle{
   width: 180px;
   height: 180px;
   border-radius: 50%;
   object-fit: cover;
   display:block;
+  border: 2px solid var(--blue);
+  background: #000;
 }
 
 .placeholder-photo{
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background:#f5f5f5;
+  background: #0b0b0b;
   display:flex;
   align-items:center;
   justify-content:center;
-  border: 2px solid #3AAA64;
-  color:#3AAA64;
-  font-weight: bold;
+  border: 2px solid var(--blue);
+  color: var(--blue);
+  font-weight: 700;
+  letter-spacing: .5px;
 }
 
+/* Tarjetas */
 .card{
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
-  background: #fff;
-  border-radius: 6px;
-  padding: 16px;
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 
 .list-group{
-  list-style: disc inside;
+  list-style: none;
   padding-left: 0;
   margin: 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
 
 .list-group-item{
-  display: list-item;
-  padding: 6px 0;
+  background: rgba(59,130,246,.18);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  border: 1px solid rgba(59,130,246,.35);
 }
 
+/* Botones */
 .btn{
   display:inline-block;
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor:pointer;
   text-decoration:none;
   font-size: 14px;
@@ -96,59 +128,75 @@ h5{
 .btn-sm{ padding: 6px 10px; font-size: 13px; }
 
 .btn-outline-success{
-  border: 1px solid #3AAA64;
-  color:#3AAA64;
+  border: 1px solid rgba(59,130,246,.6);
+  color: var(--blue);
 }
 
 .btn-outline-success:hover{
-  background:#3AAA64;
-  color:#fff;
+  background: rgba(59,130,246,.15);
+  border-color: rgba(59,130,246,.9);
+  color: var(--text);
 }
 
-/* Añadido para imprimir (+ajustes para que quepa todo en una sola página)*/
+/* Impresion, se empequeñecen los tamaños para que quepa mas compacto */
 @media print{
-  body{
-    background:#fff;
-    padding-bottom: 0;
+
+  @page{
+    size: A4;
+    margin: 10mm;
   }
 
-  /* Oculta botones al imprimir */
-  .btn{ display:none; }
+  body{
+    background:#fff !important;
+    color:#000 !important;
+    padding:0;
+    font-size: 13px;
+  }
 
-  /* Reducimos el tamaño para que quepa todo bien */
-  .container{ width: 100%; max-width: none; margin: 0; }
+  .btn{
+    display:none !important;
+  }
+
+  .container{
+    width:100%;
+    max-width:none;
+    margin:0;
+  }
 
   .row{
-    margin-top: 10px;
-    gap: 10px;
+    margin-top: 12px !important;
+    gap: 10px !important;
   }
 
   .card{
-    box-shadow: none;
-    border: 1px solid #ddd;
-    padding: 12px;
-    break-inside: avoid;
+    padding: 10px !important;
+    border:1px solid #ddd !important;
+    box-shadow:none !important;
     page-break-inside: avoid;
-  }
-
-  .header{
-    padding: 6px 0;
-  }
-
-  .rounded-circle, .placeholder-photo{
-    width: 120px;
-    height: 120px;
-  }
-
-  p{ margin: 6px 0; font-size: 13px; }
-
-  .row:last-child{
     break-inside: avoid;
-    page-break-inside: avoid;
+  }
+
+  .rounded-circle,
+  .placeholder-photo{
+    width:110px !important;
+    height:110px !important;
+  }
+
+  h2{ font-size:20px !important; }
+  h5{ font-size:15px !important; margin-bottom:6px !important; }
+
+  p{
+    margin:4px 0 !important;
+    line-height:1.3 !important;
+  }
+
+  .list-group-item{
+    font-size:12px !important;
+    padding:4px 8px !important;
   }
 
   header, .header, .teacher-name{
-    break-inside: avoid;
     page-break-inside: avoid;
+    break-inside: avoid;
   }
 }
